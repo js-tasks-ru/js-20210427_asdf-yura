@@ -6,4 +6,10 @@
  */
 export const omit = (obj, ...fields) => {
 
+    let arr = [];
+    for (let [key, value] of Object.entries(obj)) {
+        if(!fields.includes(key) )
+            arr.push(`${key}:${value}`); 
+    }
+    return arr;
 };
