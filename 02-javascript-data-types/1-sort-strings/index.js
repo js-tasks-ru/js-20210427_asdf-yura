@@ -5,17 +5,13 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
-    arr.sort( (a, b) => { 
-        if(a.normalize().toUpperCase().codePointAt(0) == b.normalize().toUpperCase().codePointAt(0)) {
-            if(a.normalize().codePointAt(0) > b.normalize().codePointAt(0))
-                return a.localeCompare(b) ;
-            else
-                return -a.localeCompare(b) 
-        } else {
-            if(param=='asc')
-                return a.localeCompare(b);
-            else
-                return -a.localeCompare(b);
-        }
+          arr.sort( (a, b) => { 
+           return a.localeCompare(b, "ru", {caseFirst:"upper"} );
     } );
+    let arrCopy=[];
+    if(param=='asc')
+        arrCopy = [...arr];
+    else if(param=='desc')
+        arrCopy = [...arr.reverse()];
+    return arrCopy;
 }
