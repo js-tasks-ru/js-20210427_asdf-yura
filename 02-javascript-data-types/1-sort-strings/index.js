@@ -7,7 +7,7 @@
 export function sortStrings(arr, param = 'asc') {
           const arrCopy = [...arr];
           arrCopy.sort( (a, b) => { 
-           return a.localeCompare(b, "ru", {caseFirst:"upper"}  ); 
+           return a.normalize().localeCompare(b.normalize(), "ru", {caseFirst:"upper"}  ); 
     } );
     let arrNew=[];
     if(param=='asc')
