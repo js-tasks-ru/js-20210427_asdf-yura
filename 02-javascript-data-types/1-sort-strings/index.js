@@ -5,15 +5,19 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
+    
+    let direction;
+    if(param === 'asc')
+        direction = 1;
+    else if(param === 'desc')
+        direction = -1;
+    else
+        throw new Error('ќшибка!');
+
     const arrCopy = [...arr];
 
-    if(param=='asc')
-        arrCopy.sort( (a, b) => {     
-            return a.normalize().localeCompare(b.normalize(),  ["ru", "en"], {caseFirst:"upper"}  ); //, numeric: true  //return a.localeCompare(b, ["ru","en"], {caseFirst:"upper", sensitivity:"accent", kn:"true" }  ); //kn - ќпредел€ет, должно ли использоватьс€ числовое сравнение, то есть, чтобы выполн€лось условие "1" < "2" < "10". //[caseFirst="upper", sensitivity="accent"]  //{caseFirst:"upper"} 
-    } );
-    else if(param=='desc')
-       arrCopy.sort( (a, b) => {     
-           return -a.normalize().localeCompare(b.normalize(),  ["ru", "en"], {caseFirst:"upper"}  ); //, numeric: true  //return a.localeCompare(b, ["ru","en"], {caseFirst:"upper", sensitivity:"accent", kn:"true" }  ); //kn - ќпредел€ет, должно ли использоватьс€ числовое сравнение, то есть, чтобы выполн€лось условие "1" < "2" < "10". //[caseFirst="upper", sensitivity="accent"]  //{caseFirst:"upper"} 
+    arrCopy.sort( (a, b) => {     
+        return direction * a.normalize().localeCompare(b.normalize(),  ['ru', 'en'], {caseFirst:'upper'}  );  
     } );
     
     return [...arrCopy];
