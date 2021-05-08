@@ -4,15 +4,7 @@
  * @returns {object | undefined} - returns new object or undefined if nothing did't pass
  */
 export function invertObj(obj) {
-    if(!obj)
-          return undefined;
-     let isEmp = (obj) => {
-          for (let key in obj) {
-               return false;
-          }
-          return true;
-     };
-     if(!isEmp) return {};
-
-     return Object.fromEntries( Object.entries(obj).map( ([key, value]) => [value, key] ) );
+     if (!obj) { return; } 
+     if (Object.keys(obj).length === 0) { return {}; }
+     return Object.fromEntries(Object.entries(obj).map(([key, value]) => [value, key]));
 }

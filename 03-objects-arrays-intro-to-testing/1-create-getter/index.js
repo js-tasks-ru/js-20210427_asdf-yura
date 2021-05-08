@@ -4,24 +4,21 @@
  * @returns {function} - function-getter which allow get value from object by set path
  */
 export function createGetter(path) {
-    let words = path.split(".");
+    const words = path.split(".");
 
     return function (obj) {
+        if (!obj) { return; }
+        if (Object.keys(obj).length === 0) { return; }
         let next = obj;
         let result = false;
-        for(let word of words) {
-            
-            for (let [key, value] of Object.entries(next)) {
-                if(word===key) {
-                    next = value;
-                    result = true;
-                    break;
-                }
-                else
-                    result = false;
-            }
+        for (let word of words) {
+            const index = Object.keys(next).indexOf(word);
+            if (index > -1) {
+                next = Object.values(next)[index]; 
+                result = true;
+            } else { result = false; }
         }
-        if(!result) next = undefined;
-        return  next;
+        if (!result) { return; } 
+        return next;
     };
 }
