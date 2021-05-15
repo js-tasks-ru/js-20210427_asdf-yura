@@ -46,14 +46,14 @@
         });
     }
 
-    get template () {
-        return `
+    get template () {//                ${this.value}
+        return  `
         <div class="column-chart column-chart_loading" style="--chart-height: 50">
             <div class="column-chart__title">
             ${this.label} ${this.getLink()}
             </div>
             <div class="column-chart__container">
-                ${this.value}
+
                 <div data-element="header" class="column-chart__header">${this.value}</div>
                 <div data-element="body" class="column-chart__chart"> 
                 ${this.getColumnBody(this.data)}
@@ -93,14 +93,21 @@
    showLoading() {
         if (this.data.length) {
             this.element.classList.remove('column-chart_loading');
+        } else {
+            if (!this.element.classList.contains('column-chart_loading')) {
+                this.element.classList.add('column-chart_loading');
+            }
         }
    }
 
-   update(data) {
-        if (Array.isArray(data) && data.length>0) {
-                this.data = data;
-                this.showLoading();
-                this.subElements.body.innerHTML = this.getColumnBody(data);
+   update(data = []) {
+        if (Array.isArray(data)) {
+            this.data = data;
+            //this.element.innerHTML = this.template;
+            // this.element = this.element.firstElementChild;
+            this.showLoading();
+            //this.subElements = this.getSubElements(this.element);
+            this.subElements.body.innerHTML = this.getColumnBody(data);
         }
    }
 
