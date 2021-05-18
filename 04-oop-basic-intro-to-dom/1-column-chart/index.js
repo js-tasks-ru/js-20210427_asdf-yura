@@ -75,8 +75,6 @@
         return this.link ? `<a href="${this.link}" class="column-chart__link">View all</a>` : '';
     }
 
-    
-
     render() {
         this.element = document.createElement('div'); // (*)
         this.element.innerHTML = this.template;
@@ -103,10 +101,7 @@
    update(data = []) {
         if (Array.isArray(data)) {
             this.data = data;
-            //this.element.innerHTML = this.template;
-            // this.element = this.element.firstElementChild;
             this.showLoading();
-            //this.subElements = this.getSubElements(this.element);
             this.subElements.body.innerHTML = this.getColumnBody(data);
         }
    }
