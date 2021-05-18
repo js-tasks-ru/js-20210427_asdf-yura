@@ -7,18 +7,16 @@
 export function sortStrings(arr, param = 'asc') {
     
     let direction;
-    if(param === 'asc')
-        direction = 1;
-    else if(param === 'desc')
-        direction = -1;
-    else
-        throw new Error('Îøèáêà!');
-
+    if (param === 'asc') {
+        direction = 1; 
+    }
+    else if (param === 'desc') {
+        direction = -1; 
+    }
+    else {
+        throw new Error('Error sortStrings'); 
+    }
     const arrCopy = [...arr];
-
-    arrCopy.sort( (a, b) => {     
-        return direction * a.normalize().localeCompare(b.normalize(),  ['ru', 'en'], {caseFirst:'upper'}  );  
-    } );
-    
+    arrCopy.sort((a, b) => { return direction * a.normalize().localeCompare(b.normalize(), ['ru', 'en'], {caseFirst: 'upper'}); });
     return [...arrCopy];
 }
