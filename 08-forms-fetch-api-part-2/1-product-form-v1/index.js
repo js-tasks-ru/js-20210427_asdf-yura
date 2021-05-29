@@ -1,6 +1,5 @@
 import escapeHtml from './utils/escape-html.js';
 import fetchJson from './utils/fetch-json.js';
-import SortableList from "../../../08-tests-routes-browser-history-api/2-sortable-list/src";
 
 const IMGUR_CLIENT_ID = '28aaa2e823b03b1';
 const BACKEND_URL = 'https://course-js.javascript.ru';
@@ -100,7 +99,7 @@ export default class ProductForm {
         <div class="form-group form-group__wide">
           <label class="form-label">Фото</label>
           <ul class="sortable-list" data-element="imageListContainer">
-            ${this.createImagesList()}
+             ${this.imagesList()}
           </ul>
           <button data-element="uploadImage" type="button" class="button-primary-outline">
             <span>Загрузить</span>
@@ -305,13 +304,28 @@ export default class ProductForm {
     return subElements;
   }
 
-  createImagesList () {
-    return new SortableList({
-      items: this.formData.images.map(item => {
-        return this.getImageItem(item.url, item.source).outerHTML;
-      })
-    });
-  }
+
+  imagesList (data = this.formData.images) {
+    let result = ``;
+    for(let i=0; i<data.length; i++) {
+        result +=`
+        <li class="products-edit__imagelist-item sortable-list__item" style="">
+            <input type="hidden" name="url" value="${data[i].url}"></input>
+            <input type="hidden" name="source" value="${data[i].source}"></input>
+            <span>
+                <img src="icon-grab.svg" data-grab-handle="" alt="grab"></img>
+                <img class="sortable-table__cell-img" alt="Image" src="${data[i].url}"></img>
+                <span>${data[i].source}</span>
+            </span>
+            <button type="button">
+                <img src="icon-trash.svg" data-delete-handle="" alt="delete">
+            </button>
+        </li>
+        `
+    }
+    return result;
+ }
+
 
   getImageItem (url, name) {
     const wrapper = document.createElement('div');
