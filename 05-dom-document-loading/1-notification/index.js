@@ -50,6 +50,5 @@ export default class NotificationMessage {
             this.element = null;
             NotificationMessage.activeNotification = null;
     }
-
 }
 
