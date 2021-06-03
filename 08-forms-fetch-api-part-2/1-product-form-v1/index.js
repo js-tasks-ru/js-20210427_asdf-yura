@@ -310,12 +310,10 @@ export default class ProductForm {
     for(let i=0; i<data.length; i++) {
         result +=`
         <li class="products-edit__imagelist-item sortable-list__item" style="">
-            <input type="hidden" name="url" value="${data[i].url}"></input>
-            <input type="hidden" name="source" value="${data[i].source}"></input>
             <span>
                 <img src="icon-grab.svg" data-grab-handle="" alt="grab"></img>
-                <img class="sortable-table__cell-img" alt="Image" src="${data[i].url}"></img>
-                <span>${data[i].source}</span>
+                <img class="sortable-table__cell-img" alt="Image" src="${escapeHtml(data[i].url)}"></img>
+                <span>${escapeHtml(data[i].source)}</span>
             </span>
             <button type="button">
                 <img src="icon-trash.svg" data-delete-handle="" alt="delete">
