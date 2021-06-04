@@ -13,6 +13,7 @@ export default class Page {
     components = {};
 
     constructor() {
+//        this.render();
     }
 
     async updateComponents(from, to) {
@@ -25,8 +26,8 @@ export default class Page {
     }
 
     initComponents() {
-        const now = new Date();
-        const from = new Date();
+        let now = new Date(); 
+        let from = new Date(); 
         const to = new Date( now.setMonth( now.getMonth() - 1 ) );
         this.components.RangePicker = new RangePicker( {from, to } );
 
@@ -36,18 +37,18 @@ export default class Page {
         });
 
         this.components.ordersChart = new ColumnChart( {
-            url: `api/dashroad/orders`,
+            url: `api/dashboard/orders`,
             range: { from, to },
             label: 'orders'
         });
         this.components.salesChart = new ColumnChart( {
-            url: `api/dashroad/sales`,
+            url: `api/dashboard/sales`,
             range: { from, to },
             label: 'orders'
         });
 
        this.components.customersChart = new ColumnChart( {
-            url: `api/dashroad/customers`,
+            url: `api/dashboard/customers`,
             range: { from, to },
             label: 'orders'
         });
@@ -86,6 +87,7 @@ export default class Page {
         this.initComponents();
         this.randerComponents() ;
         this.initEventListener();
+        return this.element;
      }
 
      getSubElements(element) {
