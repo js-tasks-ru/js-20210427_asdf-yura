@@ -13,7 +13,7 @@ export default class Page {
     components = {};
 
     constructor() {
-//        this.render();
+
     }
 
     async updateComponents(from, to) {
@@ -25,40 +25,51 @@ export default class Page {
         this.components.customsChart.update(from,to);
     }
 
-    initComponents() {
+   initComponents() {
         let now = new Date(); 
         let from = new Date(); 
         const to = new Date( now.setMonth( now.getMonth() - 1 ) );
-        this.components.RangePicker = new RangePicker( {from, to } );
+        const rangePicker = new RangePicker( {from, to } );
 
-        this.components.SortableTable = new SortableTable(header, {
+        const sortableTable = new SortableTable(header, {
             url: `api/dashboard/bestsellers`,  
             isSortlocaly: true
         });
 
-        this.components.ordersChart = new ColumnChart( {
+        const ordersChart = new ColumnChart( {
             url: `api/dashboard/orders`,
             range: { from, to },
             label: 'orders'
         });
-        this.components.salesChart = new ColumnChart( {
+        const salesChart = new ColumnChart( {
             url: `api/dashboard/sales`,
             range: { from, to },
             label: 'orders'
         });
 
-       this.components.customersChart = new ColumnChart( {
+       const customersChart = new ColumnChart( {
             url: `api/dashboard/customers`,
             range: { from, to },
             label: 'orders'
         });
+
+        this.components = {
+            rangePicker,
+            sortableTable,
+            ordersChart,
+            salesChart,
+            customersChart
+        };
+
        
     }
 
     randerComponents() {
         Object.keys(this.components).forEach(component => {
-            const { root } = this.subElements[component];
+            const root = this.subElements[component];
             const { element } = this.components[component];
+
+            root.append(element);
         });
     }
 
@@ -66,19 +77,24 @@ export default class Page {
         return ` <div class="dashboard">
                    <div class="content__top-panel">
                      <h2 class="page_title">Dashboard</h2>
-                     <div data-element="RangePicker"></div>
+                     <!---  -->
+                     <div data-element="rangePicker"></div>
                    </div>
                    <div data-element="ChartsRoot" class="dashboard__charts">
+                   <!---  -->
                       <div data-element="ordersChart" class="dashboard__chart_orders"></div>
                       <div data-element="salesChart" class="dashboard__chart_sales"></div>
                       <div data-element="customersChart" class="dashboard__chart_customers"></div>
                    </div>
                    <h3 class="block-title" >Best sales</h3>
-                   <div data-element="SortableTable"></div>
+                   <div data-element="sortableTable">
+                   <!---  -->
+                   </div>
                 </div>
                `
     }
      render() {
+        
         this.element = document.createElement('div'); // (*)
         this.element.innerHTML = this.template;
         this.element = this.element.firstElementChild;
@@ -101,8 +117,8 @@ export default class Page {
      }
 
      initEventListener() {
-        this.components.RangePicker.dispatchEvent('data-select', event => {   //  //this.components.RangePicker.addEventListener('data-select', event => { 
-            const {from, to } = event.detal;
+         this.components.rangePicker.element.addEventListener('date-select', event => {  
+            const {from, to } = event.detail;
             this.updateComponents(from, to);
         });
      }
