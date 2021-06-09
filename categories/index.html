@@ -1,0 +1,22 @@
+﻿<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="module">
+  import Categories from './index.js';
+
+  const categories = new Categories({
+    url: '/api/rest/categories',    ///'api/rest/products'
+    refs: 'subcategory',
+    sort: 'weight'
+  });
+  
+ // root.append(categories.element);
+
+</script>
+</body>
